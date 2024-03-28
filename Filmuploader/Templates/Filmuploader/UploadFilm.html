@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Film</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        input[type="file"] {
+            margin-top: 5px;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #0056b3;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        video {
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Title</td>
+                <td><input type="text" name="txttitle" id=""></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><textarea name="txtdisc" id="" cols="30" rows="10"></textarea></td>
+            </tr>
+            <tr>
+                <td>Genre</td>
+                <td>
+                    <select name="sel_genre" id="sel_genre">
+                        <option value="">---select---</option>
+                        {% for i in gendata %}
+                        <option value="{{i.id}}">{{i.genre_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Language</td>
+                <td>
+                    <select name="sel_lang" id="">
+                        <option value="">---select---</option>
+                        {% for i in landata %}
+                        <option value="{{i.id}}">{{i.lang_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Duration</td>
+                <td><input type="text" name="txtduration" id=""></td>
+            </tr>
+            <tr>
+                <td>Poster</td>
+                <td><input type="file" name="txtposter" id=""></td>
+            </tr>
+            <tr>
+                <td>File</td>
+                <td><input type="file" name="txtfile" id=""></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Upload">
+                    <input type="reset" value="Cancel">
+                </td>
+            </tr>
+        </table>
+        </form>
+        <br>
+        <form action="" class="form">
+        <table>
+            <tr>
+                <td>SINO</td>
+                <td>Title</td>
+                <td>Description</td>
+                <td>Genre</td>
+                <td>Language</td>
+                <td>Duration</td>
+                <td>Poster</td>
+                <td>File</td>
+                <td>Action</td>
+            </tr>
+            {% for i in updata %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.film_title}}</td>
+                <td>{{i.film_disc}}</td>
+                <td>{{i.film_genre.genre_name}}</td>
+                <td>{{i.film_lang.lang_name}}</td>
+                <td>{{i.film_duration}}</td>
+                <td><img src="{{i.film_poster.url}}" width="150" height="150"></td>
+                <td>
+                    <video width="150" height="150" controls controlsList="nodownload">
+                        <source src="{{i.film_file.url}}" type="video/mp4">
+                        Your browser does not support the video.
+                    </video>
+                </td>
+                <td><a href="{% url 'webuploader:Del_film' i.id %}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>

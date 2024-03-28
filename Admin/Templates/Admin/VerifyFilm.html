@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Film</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        video {
+            max-width: 150px;
+            height: auto;
+        }
+
+        a {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-right: 5px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <form action="" method="post">
+        <h2>New Films</h2>
+        <table>
+            <tr>
+                <th>SINO</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Genre</th>
+                <th>Language</th>
+                <th>Duration</th>
+                <th>Poster</th>
+                <th>File</th>
+                <th>Action</th>
+            </tr>
+            {% for i in filmdata %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.film_title }}</td>
+                <td>{{ i.film_disc }}</td>
+                <td>{{ i.film_genre.genre_name }}</td>
+                <td>{{ i.film_lang.lang_name }}</td>
+                <td>{{ i.film_duration }}</td>
+                <td><img src="{{i.film_poster.url}}"></td>
+                <td><video controls>
+                    <source src="{{i.film_file.url}}" type="video/mp4">
+                    Your browser does not support the video.
+                  </video></td>
+                <td>
+                    <a href="{% url 'webadmin:acc_film' i.id %}">Accept</a>
+                    <a href="{% url 'webadmin:rej_film' i.id %}">Reject</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <h2>Accepted Films</h2>
+        <table>
+            <tr>
+                <th>SINO</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Genre</th>
+                <th>Language</th>
+                <th>Duration</th>
+                <th>Poster</th>
+                <th>File</th>
+                <th>Action</th>
+            </tr>
+            {% for i in filmacc %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.film_title }}</td>
+                <td>{{ i.film_disc }}</td>
+                <td>{{ i.film_genre.genre_name }}</td>
+                <td>{{ i.film_lang.lang_name }}</td>
+                <td>{{ i.film_duration }}</td>
+                <td><img src="{{i.film_poster.url}}"></td>
+                <td><video controls>
+                    <source src="{{i.film_file.url}}" type="video/mp4">
+                    Your browser does not support the video.
+                  </video></td>
+                <td>
+                    <a href="{% url 'webadmin:rej_film' i.id %}">Reject</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <h2>Rejected Films</h2>
+        <table>
+            <tr>
+                <th>SINO</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Genre</th>
+                <th>Language</th>
+                <th>Duration</th>
+                <th>Poster</th>
+                <th>File</th>
+                <th>Action</th>
+            </tr>
+            {% for i in filmrej %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.film_title }}</td>
+                <td>{{ i.film_disc }}</td>
+                <td>{{ i.film_genre.genre_name }}</td>
+                <td>{{ i.film_lang.lang_name }}</td>
+                <td>{{ i.film_duration }}</td>
+                <td><img src="{{i.film_poster.url}}"></td>
+                <td><video controls>
+                    <source src="{{i.film_file.url}}" type="video/mp4">
+                    Your browser does not support the video.
+                  </video></td>
+                <td>
+                    <a href="{% url 'webadmin:acc_film' i.id %}">Accept</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+    
+</body>
+</html>

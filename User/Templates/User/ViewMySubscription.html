@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View My Subscription</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .action-buttons {
+            text-align: center;
+        }
+
+        .action-buttons a {
+            margin: 0 5px;
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .action-buttons a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="" method="post">
+            <table>
+                <tr>
+                    <th>SINO</th>
+                    <th>Plan Name</th>
+                    <th>Details</th>
+                    <th>Amount</th>
+                    <th>Start Date</th>
+                    <th>Action</th>
+                </tr>
+                {% for i in datas %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.plan.subscription_plan}}</td>
+                    <td>{{i.plan.subscription_details}}</td>
+                    <td>{{i.plan.subscription_planamt}}</td>
+                    <td>{{i.subscription_startdate}}</td>
+                    <td class="action-buttons">
+                        <a href="{% url 'webuser:renewplan' i.id %}">Renew</a>
+                        <a href="{% url 'webuser:ViewSubscription' %}">New Plan</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        td:first-child {
+            width: 50px;
+        }
+
+        td:last-child {
+            width: 200px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <form action="" method="post">
+        <table border="1" align="center">
+            <tr>
+                <th>SINO</th>
+                <th>Feedback</th>
+                <th>Date</th>
+                <th>Username</th>
+            </tr>
+            {% for i in feed %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.feedback_content }}</td>
+                <td>{{ i.feedback_date }}</td>
+                <td>{{ i.user_id.user_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>

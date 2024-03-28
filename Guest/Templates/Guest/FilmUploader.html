@@ -1,0 +1,160 @@
+{% extends 'Guest/HF.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film Uploader - Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Form Styles */
+        form {
+            margin-top: 30px;
+        }
+
+        .input__item {
+            margin-bottom: 20px;
+        }
+
+        .input__item input,
+        .input__item textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            font-size: 16px;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .input__item input:focus,
+        .input__item textarea:focus {
+            border-color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 30px;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #555;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Social Links */
+        .social-links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #333;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Register Now</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input__item">
+            <label for="txtname">Your Name</label>
+            <input type="text" id="txtname" name="txtname" placeholder="Enter your name" title="Name must contain letters, spaces,(.)and the first letter must be capital." pattern="^[A-Z][a-zA-Z ]*$" required>
+        </div>
+        <div class="input__item">
+            <label for="txtmail">Email Address</label>
+            <input type="email" id="txtmail" name="txtmail" placeholder="Enter your email address" required input class="email" name="email" type="email" placeholder="example@gmail.com" title="Please enter a valid email address" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
+        </div>
+        <div class="input__item">
+            <label for="txtcno">Contact Number</label>
+            <input type="tel" id="txtcno" name="txtcno" placeholder="Enter your contact number" required input type="text" name="phone" id="phone" class="input-text" pattern="[0-9]{10}" required>
+            
+        </div>
+        <div class="input__item">
+            <label for="txtaddress">Address</label>
+            <textarea id="txtaddress" name="txtaddress" placeholder="Enter your address" rows="3" required></textarea>
+        </div>
+        <div class="input__item">
+            <label for="img">Profile Photo</label>
+            <input type="file" id="img" name="txtimg" accept="image/*" required>
+        </div>
+        <div class="input__item">
+            <label for="proof">Proof</label>
+            <input type="file" id="proof" name="txtproof" accept="image/*,.pdf" required>
+        </div>
+        <div class="input__item">
+            <label for="txtpword">Password</label>
+            <input type="password" id="txtpword" name="txtpword" placeholder="Enter your password" required class="input-text" required pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^\w\d\s]).{8,}$" title="Password must have at least 8 characters with first letter capital, one number, and one symbol">
+        </div>
+        <div class="input__item">
+            <label for="txtcpword">Confirm Password</label>
+            <input type="password" id="txtcpword" name="txtcpword" placeholder="Confirm your password" required class="input-text" required pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^\w\d\s]).{8,}$" title="Password must have at least 8 characters with first letter capital, one number, and one symbol">
+        </div>
+        <input type="submit" class="btn" value="Sign Up">
+        <input type="reset" class="btn" value="Cancel">
+    </form>
+    <div class="social-links">
+        <h3>Sign Up With:</h3>
+        <a href="{% url 'webguest:Login' %}" class="google"><i class="fab fa-google"></i></a>
+        <a href="{% url 'webguest:Login' %}" class="twitter"><i class="fab fa-twitter"></i></a>
+    </div>
+    <div class="text-center">
+        <p>Already have an account? <a href="{% url 'webguest:Login' %}">Log In!</a></p>
+    </div>
+</div>
+</body>
+</html>
+{% endblock content %}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .rate-link {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .rate-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <form action="" method="post">
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Poster</th>
+                <th>Genre</th>
+                <th>Language</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+            {% for i in film %}
+            <tr>
+                <td>{{i.film.film_title}}</td>
+                <td><img src="{{i.film.film_poster.url}}" width="150" height="150"></td>
+                <td>{{i.film.film_genre.genre_name}}</td>
+                <td>{{i.film.film_lang.lang_name}}</td>
+                <td>{{i.watch_datetime}}</td>
+                <td><a class="rate-link" href="{% url 'webuser:rating' i.film.id %}">Rate Now</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>

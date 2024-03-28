@@ -1,0 +1,15 @@
+{% for i in key %}
+<div class="film-grid">
+  <div class="film-item">
+    <img src="{{i.film_poster.url}}" alt="Film 1" class="film-photo" width="150" height="150">
+    <div class="film-details">
+      <div class="film-title">{{i.film_title}}</div>
+      <div class="film-description">{{i.film_description}}</div>
+      <div class="film-genre">Genre: {{i.film_genre.genre_name}}</div>
+      <div class="film-language">Language: {{i.film_lang.lang_name}}</div>
+      <div><td colspan="2" align="center"><a href="{% url 'webuser:Wishlist' i.id %}">Add To Wishlist</a>&nbsp;&nbsp;<a href="{% url 'webuser:FilmDetails' i.id %}">View More</a></td>
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}

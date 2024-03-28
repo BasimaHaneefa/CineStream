@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #videoPlayerContainer {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #videoPlayer {
+            width: 100%;
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 0 0 10px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls button, .controls input[type="range"] {
+            background-color: transparent;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .controls button:hover, .controls input[type="range"]:hover {
+            color: #ccc;
+        }
+
+        .controls button:not(:last-child) {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="videoPlayerContainer">
+        <video id="videoPlayer" controls>
+            <source src="{{ film.film_file.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        
+    </div>
+    <div class="controls">
+        <button id="playPauseBtn">Play/Pause</button>
+        <button id="skipBackwardBtn"><< 10s</button>
+        <button id="skipForwardBtn">10s >></button>
+        <button id="muteBtn">Mute/Unmute</button>
+        <button id="fullscreenBtn">Fullscreen</button>
+        <input type="range" id="volumeRange" min="0" max="1" step="0.1" value="1">
+    </div>
+    <script>
+        const video = document.getElementById('videoPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const skipBackwardBtn = document.getElementById('skipBackwardBtn');
+        const skipForwardBtn = document.getElementById('skipForwardBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const volumeRange = document.getElementById('volumeRange');
+
+        playPauseBtn.addEventListener('click', () => {
+            if (video.paused || video.ended) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
+
+        skipBackwardBtn.addEventListener('click', () => {
+            video.currentTime -= 10; // Skip backward by 10 seconds
+        });
+
+        skipForwardBtn.addEventListener('click', () => {
+            video.currentTime += 10; // Skip forward by 10 seconds
+        });
+
+        muteBtn.addEventListener('click', () => {
+            video.muted = !video.muted;
+        });
+
+        fullscreenBtn.addEventListener('click', () => {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) { /* Safari */
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) { /* IE11 */
+                video.msRequestFullscreen();
+            }
+        });
+
+        volumeRange.addEventListener('input', () => {
+            video.volume = volumeRange.value;
+        });
+    </script>
+</body>
+</html>

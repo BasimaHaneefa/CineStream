@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Film</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+<body>
+    <div class="container mt-5">
+        <form action="" method="post" id="search" data-film-url="{% url 'webuser:AjaxFilm' %}" data-key-url="{% url 'webuser:AjaxKey' %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="sel_genre">Genre</label>
+                        <select name="sel_genre" id="sel_genre" class="form-control" onchange="searchFilm()">
+                            <option value="">---select---</option>
+                            {% for i in gen %}
+                            <option value="{{i.id}}">{{i.genre_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="sel_lang">Language</label>
+                        <select name="sel_lang" id="sel_lang" class="form-control" onchange="searchFilm()">
+                            <option value="">---select---</option>
+                            {% for i in lan %}
+                            <option value="{{i.id}}">{{i.lang_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="key">Search</label>
+                <input type="text" name="txt_key" id="key" class="form-control" placeholder="Type title" onkeyup="keySearch()">
+            </div>   
+            <div id="result">
+                {% for i,a in film %}
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="{{i.film_poster.url}}" class="card-img" alt="Poster">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{i.film_title}}</h5>
+                                <p class="card-text">Genre: {{i.film_genre.genre_name}}</p>
+                                <p class="card-text">Language: {{i.film_lang.lang_name}}</p>
+                                <p class="card-text"><small class="text-muted">Rating: {% for k in ar %}
+                                    {% if k <= a %}
+                                    <i class="fas fa-star text-warning"></i>
+                                    {% else %}
+                                    <i class="fas fa-star star-light mr-1"></i>
+                                    {% endif %}
+                                    {% endfor %}
+                                </small></p>
+                                <a href="{% url 'webuser:Wishlist' i.id %}" class="btn btn-primary">Add To Wishlist</a>
+                                <a href="{% url 'webuser:FilmDetails' i.id %}" class="btn btn-secondary">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function searchFilm() {
+            var gid = document.getElementById("sel_genre").value
+            var lanid = document.getElementById("sel_lang").value
+            var url = $("#search").data("film-url");
+            $.ajax({
+                url: url,
+                data: { gid: gid, lanid: lanid },
+                success: function (data) {
+                    $("#result").html(data);
+                },
+            });
+        }
+
+        function keySearch() {
+            var word = document.getElementById("key").value
+            var url = $("#search").data("key-url");
+            $.ajax({
+                url: url,
+                data: { word:word },
+                success: function (data) {
+                    $("#result").html(data);
+                },
+            });
+        }
+    </script>
+</body>
+</html>

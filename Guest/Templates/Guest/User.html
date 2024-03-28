@@ -1,0 +1,165 @@
+{% extends 'Guest/HF.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineStream | New User</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Form Styles */
+        form {
+            margin-top: 30px;
+        }
+
+        .input__item {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input__item input {
+            width: calc(100% - 40px);
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            font-size: 16px;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .input__item input:focus {
+            border-color: #333;
+        }
+
+        .input__item .icon_profile,
+        .input__item .icon_mail,
+        .input__item .icon_lock {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+            color: #999;
+            font-size: 18px;
+        }
+
+        .site-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .site-btn:hover {
+            background-color: #555;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Social Links */
+        .login_social_links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .login_social_links ul {
+            padding: 0;
+            list-style: none;
+            margin-bottom: 0;
+        }
+
+        .login_social_links ul li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .login_social_links a {
+            color: #333;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .login_social_links a:hover {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Register Now</h2>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input__item">
+            <input name="txtname" type="text" placeholder="Your Name" title="Name must contain letters, spaces,(.)and the first letter must be capital." pattern="[A-Z][a-zA-Z.]+" required>
+            <span class="icon_profile"><i class="fas fa-user"></i></span>
+        </div>
+        <div class="input__item">
+            <input name="txtmail" type="email" placeholder="Email address" input class="email" name="email" type="email" placeholder="example@gmail.com" title="Please enter a valid email address" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
+            <span class="icon_mail"><i class="fas fa-envelope"></i></span>
+        </div>
+        <div class="input__item">
+            <input type="file" name="txtimg" id="" placeholder="photo">
+            <span class="icon_profile"><i class="fas fa-camera"></i></span>
+        </div>
+        <div class="input__item">
+            <input type="password" name="txtpword" placeholder="Password" class="input-text" required pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^\w\d\s]).{8,}$" title="Password must have at least 8 characters with first letter capital, one number, and one symbol">
+            <span class="icon_lock"><i class="fas fa-lock"></i></span>
+        </div>
+        <div class="input__item">
+            <input type="password" name="txtpword" placeholder="Confirm Password" class="input-text" required pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^\w\d\s]).{8,}$" title="Password must have at least 8 characters with first letter capital, one number, and one symbol">
+            <span class="icon_lock"><i class="fas fa-lock"></i></span>
+        </div>
+        <button type="submit" class="site-btn">Sign Up</button>
+        <br>
+        <button type="reset" class="site-btn">Cancel</button>
+    </form>
+    <div class="text-center">
+        <p>Already have an account? <a href="{% url 'webguest:Login' %}">Log In!</a></p>
+    </div>
+    <div class="login_social_links">
+        <h3>Login With:</h3>
+        <ul>
+            <li><a href="{% url 'webguest:Login' %}" class="google"><i class="fab fa-google"></i></a></li>
+            <li><a href="{% url 'webguest:Login' %}" class="twitter"><i class="fab fa-twitter"></i></a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
+{% endblock content %}
